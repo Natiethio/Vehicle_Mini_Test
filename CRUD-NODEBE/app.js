@@ -34,12 +34,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/api/vehicle", vehicleRoutes);  //base route is /api/vehicle in vehicleRoutes it will have a child route to to have the controller function 
 
 
-if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => {
-    console.log(`Server is running on port: ${PORT}`);
-  });
-}
+// if (process.env.NODE_ENV !== "production") {
+//   const PORT = process.env.PORT || 5000;
+//   app.listen(PORT, () => {
+//     console.log(`Server is running on port: ${PORT}`);
+//   });
+// }
 
 module.exports = app;
 
