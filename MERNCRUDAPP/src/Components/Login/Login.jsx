@@ -11,6 +11,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
     const [role, setRole] = useState("");
+    const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
 
     useEffect(() => {
         localStorage.removeItem("token")
@@ -50,7 +51,7 @@ const Login = () => {
         document.getElementById('Login_Button').innerHTML = 'Signing in...'
 
         try {
-            const  response  = await axios.post("http://localhost:5001/api/user/login", formdata, {
+            const  response  = await axios.post(`${backendURL}/api/user/login`, formdata, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -82,7 +83,7 @@ const Login = () => {
 
         const token = JSON.parse(localStorage.getItem('token'));
     
-        await axios.get('http://localhost:5001/api/user/getauthuser', {
+        await axios.get(`${backendURL}/api/user/getauthuser`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },

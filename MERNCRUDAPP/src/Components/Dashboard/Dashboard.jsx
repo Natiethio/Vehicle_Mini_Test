@@ -15,6 +15,7 @@ const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [loading, setLoading] = useState(true);
+  const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
   const navigate = useNavigate();
 
   const formatDate = (dateString) => {
@@ -29,7 +30,7 @@ const Dashboard = () => {
   const fetchVehicle = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/vehicle/getallvehicles', {
+      const response = await axios.get(`${backendURL}/api/vehicle/getallvehicles`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -54,7 +55,7 @@ const Dashboard = () => {
     const id = selectedVehicle._id;
 
     try {
-      const response = await axios.delete(`http://127.0.0.1:5000/api/vehicle/deletevehicle/${id}`, {
+      const response = await axios.delete(`${backendURL}/api/vehicle/deletevehicle/${id}`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -119,7 +120,7 @@ const Dashboard = () => {
                   <td>{Vehicle.status}</td>
                   <td>
                     <img
-                      src={`http://localhost:5000/uploads/${Vehicle.vehicleImage}`}
+                      src={`${backendURL}/uploads/${Vehicle.vehicleImage}`}
                       alt="Vehicle"
                       className="vehicle-image"
                     />

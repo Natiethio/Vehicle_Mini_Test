@@ -12,6 +12,7 @@ const User = () => {
     const navigate = useNavigate();
     const [cookies, removeCookie] = useCookies([]);
     const [username, setUsername] = useState("");
+    const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
 
     // useEffect(() => {
     //     const verifyCookie = async () => {
@@ -19,7 +20,7 @@ const User = () => {
     //         navigate("/login");
     //       }
     //       const response = await axios.post(
-    //         "http://localhost:5001/api/user/username",
+    //         `${backendURL}/api/user/username`,
     //         {},
     //         { withCredentials: true }
     //       );

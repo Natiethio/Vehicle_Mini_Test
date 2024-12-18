@@ -23,6 +23,7 @@ const UpdateVehicle = () => {
     const [vehicleImage, setVehicleImage] = useState("");
     const [Image, setImage] = useState(null);
     const [errors, setErrors] = useState({});
+    const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
     const [initialValues, setInitialValues] = useState({}); 
 
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ const UpdateVehicle = () => {
     const fetchVehicleUPD = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`http://localhost:5000/api/vehicle/getvehiclebyid/${id}`, {
+            const response = await axios.get(`${backendURL}/api/vehicle/getvehiclebyid/${id}`, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -111,7 +112,7 @@ const UpdateVehicle = () => {
 
 
         try {
-            const response = await axios.post(`http://localhost:5000/api/vehicle/updatevehicle/${id}`, formdata, {
+            const response = await axios.post(`${backendURL}/api/vehicle/updatevehicle/${id}`, formdata, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -310,7 +311,7 @@ const UpdateVehicle = () => {
                                         <img
                                             src={
                                                 // Vehicle.profileImage
-                                                `http://localhost:5000/uploads/${vehicleImage}`
+                                                `${backendURL}/uploads/${vehicleImage}`
                                             }
                                             alt="Profile"
                                             className="vehicle-image-upd"

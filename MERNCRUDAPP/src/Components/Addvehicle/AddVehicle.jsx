@@ -12,6 +12,7 @@ const AddVehicle = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [Image, setImage] = useState(null);
+    const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
     const [formData, setFormData] = useState({
         vehicleName: '',
         model: '',
@@ -53,7 +54,7 @@ const AddVehicle = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:5000/api/vehicle/addvehicle",
+                `${backendURL}/api/vehicle/addvehicle`,
                 formDataToSend,
                 {
                     headers: {
