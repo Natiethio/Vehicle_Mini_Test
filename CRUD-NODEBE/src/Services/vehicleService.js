@@ -1,5 +1,4 @@
 const Vehicle = require("../models/vehicle")
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
 const cookieParser = require("cookie-parser");
