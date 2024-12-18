@@ -1,0 +1,21 @@
+.navbar {
+    font-size: 1.5rem;
+    padding: 15px;
+    width:100%;
+}
+
+.navbar .nav-brand {
+    font-size: x-large;
+}
+
+.navbar .nav-link {
+    color: #fff;
+    font-size: 19px;
+    font-weight: 400;
+    margin-right: 20px;
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.navbar .nav-link:hover {
+    color: #cccccc; /* Slightly darker white */
+}

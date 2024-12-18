@@ -1,0 +1,80 @@
+[{
+  "_id": {
+    "$oid": "675c52d9946ee4db1ba29275"
+  },
+  "vehicleName": "Toyota",
+  "model": "Land Cluiser",
+  "capacity": 4,
+  "plateNumber": "A098764",
+  "code": "2",
+  "region_code": "አማ / AM",
+  "status": "Active",
+  "vehicleImage": "Toyota_A098764_2024-12-13_1734103769359-1.png",
+  "createdAt": {
+    "$date": "2024-12-13T15:29:29.375Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-13T15:29:29.375Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "675d40b6726610ce797c12e2"
+  },
+  "vehicleName": "Toyota",
+  "model": "Vitz",
+  "capacity": 4,
+  "plateNumber": "A4k6764",
+  "code": "3",
+  "region_code": "አአ / AA",
+  "status": "Active",
+  "vehicleImage": "Toyota_A4k6764_2024-12-14_1734164662887-1.png",
+  "createdAt": {
+    "$date": "2024-12-14T08:24:22.891Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-14T08:24:22.891Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "675d41d7c37fbfd4dbb5a9b0"
+  },
+  "vehicleName": "BYD",
+  "model": "BYD",
+  "capacity": 4,
+  "plateNumber": "D456796",
+  "code": "2",
+  "region_code": "አአ / AA",
+  "status": "Under_Maintenance",
+  "vehicleImage": "Profile-Default_Car.png",
+  "createdAt": {
+    "$date": "2024-12-14T08:29:11.495Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-14T08:29:22.925Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "675d6c454ab58ccf781a2608"
+  },
+  "vehicleName": "Toyota",
+  "model": "Corolla",
+  "capacity": 4,
+  "plateNumber": "FGY4789",
+  "code": "ኢት /ተላላፊ",
+  "region_code": "ኢት / ET",
+  "status": "Active",
+  "vehicleImage": "Toyota_FGY4789_2024-12-14_1734175813431-1.png",
+  "createdAt": {
+    "$date": "2024-12-14T11:30:13.450Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-14T11:30:13.450Z"
+  },
+  "__v": 0
+}]
