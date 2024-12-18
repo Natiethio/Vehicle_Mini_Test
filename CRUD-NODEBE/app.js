@@ -16,7 +16,7 @@ app.use(cookieParser());
 
 
 const corsOptions = {
-  origin: 'https://vehicle-mini-frontend.vercel.app/',
+  origin: 'https://vehicle-mini-frontend.vercel.app',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };
