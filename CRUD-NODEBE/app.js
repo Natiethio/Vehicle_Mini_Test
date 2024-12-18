@@ -27,8 +27,6 @@ app.get("/",   (req, res) => {
   res.json("Back End");
 })
 
-app.get('/favicon.ico', (req, res) => res.status(204).end()); // Handle favicon requests
-
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

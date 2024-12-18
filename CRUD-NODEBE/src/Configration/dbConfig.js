@@ -5,8 +5,8 @@ require('dotenv').config();
 const dbURL = process.env.MONGODB_URL;
 
 mongoose.connect(dbURL, { 
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  // useNewUrlParser: true,
+  // useUnifiedTopology: true,
 });
 
 // "mongodb+srv://natmantest:Etyopgion9310@cluster0.a4xgx.mongodb.net/vehicle_DB?retryWrites=true&w=majority&appName=Cluster0"
