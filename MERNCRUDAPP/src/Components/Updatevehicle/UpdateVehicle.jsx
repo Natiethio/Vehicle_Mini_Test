@@ -26,7 +26,7 @@ const UpdateVehicle = () => {
     const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
     const backendURLocal = import.meta.env.VITE_REACT_APP_BACKEND_BASEURLocal;
     const [isOffline, setIsOffline] = useState(!navigator.onLine);
-    const [initialValues, setInitialValues] = useState({});
+
 
     const navigate = useNavigate();
 
@@ -55,6 +55,7 @@ const UpdateVehicle = () => {
     const fetchVehicleUPD = async () => {
 
         setLoading(true);
+
         try {
             const response = await axios.get(`${backendURL}/api/vehicle/getvehiclebyid/${id}`, {
                 headers: {
