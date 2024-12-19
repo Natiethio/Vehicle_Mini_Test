@@ -211,7 +211,7 @@ const Dashboard = () => {
       ) : (
 
         <div className="d-flex justify-content-center align-items-center" style={{ height: "80vh" }}>
-          <h1 className="text-muted">No data or Unable To Featch.</h1>
+          <h1 className="text-muted">No data or Unable to featch</h1>
         </div>
       )}
 

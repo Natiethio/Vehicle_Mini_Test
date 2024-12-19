@@ -367,7 +367,7 @@ const UpdateVehicle = () => {
                             </div>
                         ) : (
                             <div className="d-flex justify-content-center align-items-center" style={{ height: "80vh" }}>
-                                <h1 className="text-muted">No data or Unable to fetch data.</h1>
+                                <h1 className="text-muted">No data or Unable to fetch.</h1>
                                 {/* {<h1 className="text-muted">Unable to fetch data.</h1>} */}
                             </div>
                         )}
