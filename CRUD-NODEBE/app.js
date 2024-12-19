@@ -24,7 +24,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.get("/",   (req, res) => {
-  res.json("Back End"); 
+  res.json("Back End Upd"); 
 })
 
 app.get('/favicon.ico', (req, res) => res.status(204).end()); // Handle favicon requests
