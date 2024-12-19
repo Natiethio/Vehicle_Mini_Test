@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Form, Button, Container, Row, Col, Spinner,Alert } from 'react-bootstrap';
 import "./Addvehicle.css"
 import { useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
@@ -9,10 +9,13 @@ import axios from 'axios';
 
 const AddVehicle = () => {
 
+    const [isOffline, setIsOffline] = useState(!navigator.onLine);
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [Image, setImage] = useState(null);
+    const [buttonstate, setButtonState] = useState(false);
     const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
+    const backendURLocal = import.meta.env.VITE_REACT_APP_BACKEND_BASEURLocal;
     const [formData, setFormData] = useState({
         vehicleName: '',
         model: '',
@@ -22,6 +25,26 @@ const AddVehicle = () => {
         code: '',
         status: '',
     });
+
+    useEffect(() => {
+
+        const handleOnline = () => {
+            setIsOffline(false);
+        };
+
+        const handleOffline = () => {
+            setIsOffline(true);
+        }
+
+        window.addEventListener("online", handleOnline);
+        window.addEventListener("offline", handleOffline);
+
+        return () => {
+            window.removeEventListener("online", handleOnline);
+            window.removeEventListener("offline", handleOffline);
+        };
+    }, []);
+
 
     const handleChange = (e) => {
         clearErrorMessage()
@@ -40,6 +63,23 @@ const AddVehicle = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!navigator.onLine) {
+            // setLoading(false);
+            toast.error("Something went wrong!",
+                {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    style: { backgroundColor: "red", color: "#fff" },
+                }
+            );
+            return;
+        }
+
         document.getElementById('Submit_Button').disabled = true
         document.getElementById('Submit_Button').innerHTML = 'Registering...'
         const formDataToSend = new FormData();
@@ -101,6 +141,12 @@ const AddVehicle = () => {
     return (
         <>
             <Header />
+
+            {isOffline && (
+                <Alert variant="warning" className="d-flex justify-content-center align-items-center text-center">
+                    Opps! You appear to be offline. Please check your internet connection.
+                </Alert>
+            )}
 
             <Container className="mt-5">
                 <Row className="justify-content-center">
@@ -246,7 +292,7 @@ const AddVehicle = () => {
                                 </Form.Group>
 
 
-                                <Button variant="dark" Id="Submit_Button" type="submit" className="mt-4 w-100">
+                                <Button variant="dark" disabled={isOffline} Id="Submit_Button" type="submit" className="mt-4 w-100 cursor">
                                     Add
                                 </Button>
 

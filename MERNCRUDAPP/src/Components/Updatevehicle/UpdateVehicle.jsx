@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom';
-import { Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 import "./UpdateVehicle.css"
 import Header from '../Header/Header';
 import { toast } from "react-toastify";
@@ -24,16 +24,36 @@ const UpdateVehicle = () => {
     const [Image, setImage] = useState(null);
     const [errors, setErrors] = useState({});
     const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
-    const [initialValues, setInitialValues] = useState({}); 
+    const backendURLocal = import.meta.env.VITE_REACT_APP_BACKEND_BASEURLocal;
+    const [isOffline, setIsOffline] = useState(!navigator.onLine);
+    const [initialValues, setInitialValues] = useState({});
 
     const navigate = useNavigate();
 
+
     useEffect(() => {
+
         fetchVehicleUPD();
+
+        const handleOnline = () => {
+            setIsOffline(false);
+            fetchVehicleUPD();
+        };
+
+        const handleOffline = () => setIsOffline(true);
+
+        window.addEventListener("online", handleOnline);
+        window.addEventListener("offline", handleOffline);
+
+        return () => {
+            window.removeEventListener("online", handleOnline);
+            window.removeEventListener("offline", handleOffline);
+        };
     }, [id]);
 
 
     const fetchVehicleUPD = async () => {
+
         setLoading(true);
         try {
             const response = await axios.get(`${backendURL}/api/vehicle/getvehiclebyid/${id}`, {
@@ -52,15 +72,7 @@ const UpdateVehicle = () => {
             setRegionalCode(Vehiclenew.region_code)
             setVehicleImage(Vehiclenew.vehicleImage)
 
-            // setInitialValues({
-            //     vehicleName: Vehiclenew.vehicleName,
-            //     plateNumber: Vehiclenew.plateNumber,
-            //     model: Vehiclenew.model,
-            //     capacity: Vehiclenew.capacity,
-            //     code: Vehiclenew.code,
-            //     regionalcode: Vehiclenew.region_code,
-            //     status: Vehiclenew.status,
-            // });
+
 
         } catch (error) {
             console.error("There was an error fetching the Vehicle upd!", error);
@@ -77,19 +89,25 @@ const UpdateVehicle = () => {
         clearErrorMessage()
     };
 
-    // const hasChanges = (e) => {
-    //     vehicleName !== initialValues.vehicleName ||
-    //     platenumber !== initialValues.plateNumber ||
-    //     model !== initialValues.model ||
-    //     capacity !== initialValues.capacity ||
-    //     code !== initialValues.code ||
-    //     regionlcode !== initialValues.region_code ||
-    //     status !== initialValues.status 
-    // };
 
     const handelUpdate = async (e) => {
         e.preventDefault();
 
+        if (!navigator.onLine) {
+            // setLoading(false);
+            toast.error("Something went wrong!",
+                {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    style: { backgroundColor: "red", color: "#fff" },
+                }
+            );
+            return;
+        }
 
         console.log("Vehicle Name:", vehicleName)
         console.log("Plate Number:", platenumber)
@@ -147,6 +165,12 @@ const UpdateVehicle = () => {
     return (
         <>
             <Header />
+
+            {isOffline && (
+                <Alert variant="warning" className="d-flex justify-content-center align-items-center text-center">
+                    Opps! You appear to be offline. Please check your internet connection.
+                </Alert>
+            )}
 
             <Container className="mt-5">
                 <Row className="justify-content-center">
@@ -309,10 +333,7 @@ const UpdateVehicle = () => {
                                     <div className="vehicle-img">
                                         <p className='vehicle-Image'>Vehicle Image:</p>
                                         <img
-                                            src={
-                                                // Vehicle.profileImage
-                                                `${backendURL}/uploads/${vehicleImage}`
-                                            }
+                                            src={`http://localhost:5000/uploads/${vehicleImage}`}
                                             alt="Profile"
                                             className="vehicle-image-upd"
                                         />
@@ -330,16 +351,16 @@ const UpdateVehicle = () => {
                                     </Form.Group>
 
 
-                                    <Button variant="dark" type="submit" className="w-100 mt-5">
+                                    <Button variant="dark" disabled={isOffline} type="submit" className="w-100 mt-5">
                                         Update Vehicle
                                     </Button>
 
                                 </Form>
                             </div>
                         ) : (
-
                             <div className="d-flex justify-content-center align-items-center" style={{ height: "80vh" }}>
-                                <h1 className="text-muted">No Vehicles Found</h1>
+                                <h1 className="text-muted">Unable to fetch data.</h1>
+                                {/* {<h1 className="text-muted">Unable to fetch data.</h1>} */}
                             </div>
                         )}
                     </Col>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Table, Button, Spinner } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Spinner, Alert, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -9,6 +9,8 @@ import Header from '../Header/Header';
 import ConfirmDeleteModal from './ConfirmDeleteModel.jsx';
 import { format } from 'date-fns';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = () => {
   const [Vehicles, setVehicles] = useState([]);
@@ -16,6 +18,8 @@ const Dashboard = () => {
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [loading, setLoading] = useState(true);
   const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
+  const backendURLocal = import.meta.env.VITE_REACT_APP_BACKEND_BASEURLocal;
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
   const navigate = useNavigate();
 
   const formatDate = (dateString) => {
@@ -23,11 +27,27 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    // Fetch Vehicles from the API when the component mounts
-    fetchVehicle()
+
+    fetchVehicle();
+
+    const handleOnline = () => {
+      setIsOffline(false);
+      fetchVehicle();
+    };
+
+    const handleOffline = () => setIsOffline(true);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
   }, []);
 
   const fetchVehicle = async () => {
+
     setLoading(true);
     try {
       const response = await axios.get(`${backendURL}/api/vehicle/getallvehicles`, {
@@ -52,6 +72,23 @@ const Dashboard = () => {
   const handleDelete = async () => {
     if (!selectedVehicle)
       return;
+
+    if (!navigator.onLine) {
+        setShowModal(false);
+        toast.error("Unabele to Delete!",
+          {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            style: { backgroundColor: "red", color: "#fff" },
+          }
+        );
+        return;
+    }
+
     const id = selectedVehicle._id;
 
     try {
@@ -61,7 +98,7 @@ const Dashboard = () => {
         },
         // withCredentials: true 
       })
-      
+
       fetchVehicle();
       setShowModal(false);
 
@@ -69,6 +106,7 @@ const Dashboard = () => {
 
     catch (error) {
       console.error("There was an error deleting the vehicle!", error);
+      setShowModal(false);
     }
   };
 
@@ -86,8 +124,14 @@ const Dashboard = () => {
   return (
     <>
       <Header />
-      {loading ? (
 
+      {isOffline && (
+        <Alert variant="warning" className="d-flex justify-content-center align-items-center text-center">
+          Opps! You appear to be offline. Please check your internet connection.
+        </Alert>
+      )}
+
+      {loading ? (
         <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
           <Spinner animation="border" size='800px' variant="primary" />
         </div>
@@ -145,7 +189,7 @@ const Dashboard = () => {
       ) : (
 
         <div className="d-flex justify-content-center align-items-center" style={{ height: "80vh" }}>
-          <h1 className="text-muted">No Vehicles Found</h1>
+          <h1 className="text-muted">Unable to fetch data.</h1>
         </div>
       )}
 
