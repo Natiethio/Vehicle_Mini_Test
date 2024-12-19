@@ -9,15 +9,7 @@ const router = express.Router();
 
 
 router.post(
-  "/addvehicle",
-  upload.single("vehicleImage"),
-
-  async (req, res, next) => {
-
-    next();
-  },
-
-  vehicleController.addVehicle
+  "/addvehicle", upload.single("vehicleImage"),vehicleController.addVehicle
 );
 
 

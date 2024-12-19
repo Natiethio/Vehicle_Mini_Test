@@ -21,11 +21,10 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };
 
-
 app.use(cors(corsOptions));
 
-app.get("/",   (req, res) => {
-  res.json("Node BackEnd"); 
+app.get("/", (req, res) => {
+  res.json("Node BackEnd");
 })
 
 app.get('/favicon.ico', (req, res) => res.status(204).end()); // Handle favicon requests

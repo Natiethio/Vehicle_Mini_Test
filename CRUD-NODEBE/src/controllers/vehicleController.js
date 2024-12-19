@@ -76,6 +76,8 @@ class vehicleController {
 
       const vehicleImage = req.file || null; 
 
+      // console.log("Received File:", req.file); 
+
       const newvehicle = await vehicleService.addNewVehicle(vehicleName, model, plateNumber, capacity, code, region_code, status, vehicleImage)
 
       res.status(200).json({ message: "Vehicle Added Successfully", success: true, newvehicle });
