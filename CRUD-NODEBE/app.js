@@ -21,6 +21,7 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };
 
+
 app.use(cors(corsOptions));
 
 app.get("/",   (req, res) => {
