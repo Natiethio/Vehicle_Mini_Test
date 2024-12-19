@@ -161,6 +161,17 @@ const UpdateVehicle = () => {
             if (error.response && error.response.data.errors) {
                 setErrors(error.response.data.errors);
             }
+            toast.error("Something went wrong!",
+                {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    style: { backgroundColor: "red", color: "#fff" },
+                }
+            );
         }
         document.getElementById('Update_Button').disabled = false
         document.getElementById('Update_Button').innerHTML = 'Update Vehicle'
