@@ -58,7 +58,7 @@ const Dashboard = () => {
       })
       const data = response.data;
       setVehicles(data);
-      console.log(data);
+      // console.log(data);
     }
     catch (error) {
       console.error("There was an error fetching the vehicles!", error);
@@ -101,12 +101,34 @@ const Dashboard = () => {
 
       fetchVehicle();
       setShowModal(false);
+      toast.success("Deleted Successfully!",
+        {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          style: { backgroundColor: "green", color: "#fff" },
+        }
+      );
 
     }
 
     catch (error) {
       console.error("There was an error deleting the vehicle!", error);
       setShowModal(false);
+      toast.error("Unabele to Delete!",
+        {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          style: { backgroundColor: "red", color: "#fff" },
+        }
+      );
     }
   };
 
@@ -164,7 +186,7 @@ const Dashboard = () => {
                   <td>{Vehicle.status}</td>
                   <td>
                     <img
-                      src={`${backendURL}/uploads/${Vehicle.vehicleImage}`}
+                      src={Vehicle.vehicleImage}
                       alt="Vehicle"
                       className="vehicle-image"
                     />
@@ -189,7 +211,7 @@ const Dashboard = () => {
       ) : (
 
         <div className="d-flex justify-content-center align-items-center" style={{ height: "80vh" }}>
-          <h1 className="text-muted">Unable to fetch data.</h1>
+          <h1 className="text-muted">No data or Unable To Featch.</h1>
         </div>
       )}
 

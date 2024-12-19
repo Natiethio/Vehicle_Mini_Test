@@ -79,6 +79,8 @@ const UpdateVehicle = () => {
             console.error("There was an error fetching the Vehicle upd!", error);
         } finally {
             setLoading(false);
+            document.getElementById('Update_Button').disabled = false
+            document.getElementById('Update_Button').innerHTML = 'Update'
         }
     }
 
@@ -110,9 +112,12 @@ const UpdateVehicle = () => {
             return;
         }
 
-        console.log("Vehicle Name:", vehicleName)
-        console.log("Plate Number:", platenumber)
-        console.log("status:", status)
+        // console.log("Vehicle Name:", vehicleName)
+        // console.log("Plate Number:", platenumber)
+        // console.log("status:", status)
+
+        document.getElementById('Update_Button').disabled = true
+        document.getElementById('Update_Button').innerHTML = 'Updating...'
 
         const formdata = new FormData();
         formdata.append("vehicleName", vehicleName)
@@ -127,7 +132,7 @@ const UpdateVehicle = () => {
             formdata.append("vehicleImage", Image);
         }
 
-        console.log(formdata)
+        // console.log(formdata)
 
 
         try {
@@ -157,6 +162,8 @@ const UpdateVehicle = () => {
                 setErrors(error.response.data.errors);
             }
         }
+        document.getElementById('Update_Button').disabled = false
+        document.getElementById('Update_Button').innerHTML = 'Update Vehicle'
     }
 
     const clearErrorMessage = () => {
@@ -334,7 +341,7 @@ const UpdateVehicle = () => {
                                     <div className="vehicle-img">
                                         <p className='vehicle-Image'>Vehicle Image:</p>
                                         <img
-                                            src={`http://localhost:5000/uploads/${vehicleImage}`}
+                                            src={vehicleImage}
                                             alt="Profile"
                                             className="vehicle-image-upd"
                                         />
@@ -352,7 +359,7 @@ const UpdateVehicle = () => {
                                     </Form.Group>
 
 
-                                    <Button variant="dark" disabled={isOffline} type="submit" className="w-100 mt-5">
+                                    <Button variant="dark" id='Update_Button' disabled={isOffline} type="submit" className="w-100 mt-5">
                                         Update Vehicle
                                     </Button>
 
@@ -360,7 +367,7 @@ const UpdateVehicle = () => {
                             </div>
                         ) : (
                             <div className="d-flex justify-content-center align-items-center" style={{ height: "80vh" }}>
-                                <h1 className="text-muted">Unable to fetch data.</h1>
+                                <h1 className="text-muted">No data or Unable to fetch data.</h1>
                                 {/* {<h1 className="text-muted">Unable to fetch data.</h1>} */}
                             </div>
                         )}

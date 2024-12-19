@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button, Container, Row, Col, Spinner,Alert } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import "./Addvehicle.css"
 import { useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
@@ -13,7 +13,6 @@ const AddVehicle = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [Image, setImage] = useState(null);
-    const [buttonstate, setButtonState] = useState(false);
     const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
     const backendURLocal = import.meta.env.VITE_REACT_APP_BACKEND_BASEURLocal;
     const [formData, setFormData] = useState({
@@ -56,8 +55,18 @@ const AddVehicle = () => {
     };
 
     const handleFileChange = (e) => {
-        setImage(e.target.files[0]);
+        const file = e.target.files[0]
+        setImage(file);
+        // setFileToBase(file)
     };
+
+    // const setFileToBase = (file) =>{
+    //  const reader = new FileReader();
+    //  reader.readAsDataURL(file);
+    //  reader.onloadend = () =>{
+    //     setImage(reader.result)
+    //  }
+    // }
 
     // Vehicle-Mini
 
@@ -81,7 +90,7 @@ const AddVehicle = () => {
         }
 
         document.getElementById('Submit_Button').disabled = true
-        document.getElementById('Submit_Button').innerHTML = 'Registering...'
+        document.getElementById('Submit_Button').innerHTML = 'Adding...'
         const formDataToSend = new FormData();
         Object.entries(formData).forEach(([key, value]) => {
             formDataToSend.append(key, value);
@@ -90,7 +99,7 @@ const AddVehicle = () => {
             formDataToSend.append("vehicleImage", Image);
         }
 
-        console.log(formDataToSend)
+        // console.log(formDataToSend)
 
         try {
             const response = await axios.post(
@@ -102,6 +111,7 @@ const AddVehicle = () => {
                     },
                 }
             );
+            console.log(response.data)
             toast.success("Vehicle added successfully!", {
                 position: "top-right",
                 autoClose: 2000,
@@ -134,7 +144,7 @@ const AddVehicle = () => {
         }
         finally {
             document.getElementById("Submit_Button").disabled = false;
-            document.getElementById("Submit_Button").innerHTML = "Register";
+            document.getElementById("Submit_Button").innerHTML = "Add Vehicle";
         }
     };
 
@@ -156,10 +166,10 @@ const AddVehicle = () => {
                             <Form onSubmit={handleSubmit}>
                                 <div className='d-flex gap-5 '>
                                     <Form.Group controlId="formVehicleName">
-                                        <Form.Label>Vehicle Name</Form.Label>
+                                        <Form.Label>Vehicle Brand</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            placeholder="Enter vehicle name"
+                                            placeholder="Enter vehicle Brand"
                                             name="vehicleName"
                                             value={formData.vehicleName}
                                             onChange={handleChange}
@@ -293,10 +303,10 @@ const AddVehicle = () => {
 
 
                                 <Button variant="dark" disabled={isOffline} Id="Submit_Button" type="submit" className="mt-4 w-100 cursor">
-                                    Add
+                                    Add Vehicle
                                 </Button>
 
-                              </Form>
+                            </Form>
                             {/* <ToastContainer /> */}
                         </div>
                     </Col>
