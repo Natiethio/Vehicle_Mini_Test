@@ -6,7 +6,7 @@
     - Delete Vehicle Data
   
   ## Cloudinary Cloud Storage for images
-  ## Mongo Atlas for Storage
+  ## Mongo DataBase (Atlas) for Storage
   ## Both Front End and Back End Deployed to vercel
   ## Form Validation and Error Display
   ## Success and Error toast
