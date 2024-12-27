@@ -11,6 +11,7 @@ import { format } from 'date-fns';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ArrowRight } from 'react-bootstrap-icons';
 
 const Dashboard = () => {
   const [Vehicles, setVehicles] = useState([]);
@@ -74,19 +75,19 @@ const Dashboard = () => {
       return;
 
     if (!navigator.onLine) {
-        setShowModal(false);
-        toast.error("Unabele to Delete!",
-          {
-            position: "top-right",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            style: { backgroundColor: "red", color: "#fff" },
-          }
-        );
-        return;
+      setShowModal(false);
+      toast.error("Unabele to Delete!",
+        {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          style: { backgroundColor: "red", color: "#fff" },
+        }
+      );
+      return;
     }
 
     const id = selectedVehicle._id;
@@ -160,53 +161,61 @@ const Dashboard = () => {
       ) : Vehicles.length > 0 ? (
 
         <div className="dashboard-container">
-          <h1 className="text-center">All Vehicles</h1>
-          <Table striped bordered hover className="dashboard-table">
-            <thead>
-              <tr>
-                <th>Vehicle Name</th>
-                <th>Model</th>
-                <th>Plate Number</th>
-                <th>Code</th>
-                <th>Regional Code</th>
-                <th>Status</th>
-                <th>Vehicle Image</th>
-                <th>Last Update</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Vehicles.map((Vehicle, index) => (
-                <tr key={index}>
-                  <td>{Vehicle.vehicleName}</td>
-                  <td>{Vehicle.model}</td>
-                  <td>{Vehicle.plateNumber}</td>
-                  <td>{Vehicle.code}</td>
-                  <td>{Vehicle.region_code}</td>
-                  <td>{Vehicle.status}</td>
-                  <td>
-                    <img
-                      src={Vehicle.vehicleImage}
-                      alt="Vehicle"
-                      className="vehicle-image"
-                    />
-                  </td>
-                  <td>{formatDate(Vehicle.updatedAt)}</td>
-                  <td className="d-flex justify-content-around action-buttons">
-                    <button
-                      onClick={() => openModal(Vehicle)}
-                      className="btn btn-danger btn-icon btn-sm mr-2"
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt} />
-                    </button>
-                    <Link to={`/updatevehicle/${Vehicle._id}`} className="btn btn-success btn-icon btn-sm">
-                      <FontAwesomeIcon icon={faEdit} />
-                    </Link>
-                  </td>
+          <div className="header">
+            <h1 className="text-center">All Vehicles</h1>
+            <h1 className="text-center Arrow">
+              <span className='span-Arrow'>
+                Slide Table</span><ArrowRight />
+              </h1>
+          </div>
+          <div className="table-responsive">
+            <Table striped bordered hover className="dashboard-table">
+              <thead>
+                <tr>
+                  <th>Vehicle Name</th>
+                  <th>Model</th>
+                  <th>Plate Number</th>
+                  <th>Code</th>
+                  <th>Regional Code</th>
+                  <th>Status</th>
+                  <th>Vehicle Image</th>
+                  <th>Last Update</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {Vehicles.map((Vehicle, index) => (
+                  <tr key={index}>
+                    <td>{Vehicle.vehicleName}</td>
+                    <td>{Vehicle.model}</td>
+                    <td>{Vehicle.plateNumber}</td>
+                    <td>{Vehicle.code}</td>
+                    <td>{Vehicle.region_code}</td>
+                    <td>{Vehicle.status}</td>
+                    <td>
+                      <img
+                        src={Vehicle.vehicleImage}
+                        alt="Vehicle"
+                        className="vehicle-image"
+                      />
+                    </td>
+                    <td>{formatDate(Vehicle.updatedAt)}</td>
+                    <td className="d-flex justify-content-around action-buttons">
+                      <button
+                        onClick={() => openModal(Vehicle)}
+                        className="btn btn-danger btn-icon btn-sm mr-2"
+                      >
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </button>
+                      <Link to={`/updatevehicle/${Vehicle._id}`} className="btn btn-success btn-icon btn-sm">
+                        <FontAwesomeIcon icon={faEdit} />
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
         </div>
       ) : (
 

@@ -1,52 +1,131 @@
 .dashboard-container {
-    margin: 40px;
-  }
-  
-  .text-center {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .dashboard-table {
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%; /* Adjust the width as needed */
-  }
-  
-  .action-btn {
-    display: flex;
+  margin: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.table-responsive {
+  position: relative;
+  overflow-x: auto; 
+  overflow-y: hidden; 
+  display: block;
+  white-space: nowrap; 
+  border: 1px solid #ddd; 
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 10px; 
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px; 
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+.dashboard-table {
+  margin: 0 auto;
+  width: 200%;
+  /* Make the table full width */
+  overflow-x: auto;
+  justify-self:center
+
+}
+
+
+
+.text-center {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.Arrow{
+  display: none;
+}
+
+
+
+.Arrow svg {
+  width: 24px; 
+  height: 24px;
+}
+
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.action-btn i {
+  color: white;
+}
+
+.action-btn.btn-success {
+  background-color: green;
+  border-color: green;
+}
+
+.action-btn.btn-success i {
+  color: white;
+}
+
+.action-btn.btn-danger i {
+  color: white;
+}
+
+.usernamedelete {
+  font-size: large;
+  font-weight: bold;
+}
+
+.vehicle-image {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+}
+
+.modal-dialog {
+  max-width: 90%; 
+  margin: auto;
+}
+
+.modal-body {
+  word-wrap: break-word; 
+  text-align: center; 
+}
+
+@media screen and (max-width: 1050px) {
+  .Arrow {
+    display: flex; 
     align-items: center;
-    justify-content: center;
-    padding: 5px;
+    justify-content: center; 
+    gap: 10px; 
+    font-size: 1.5rem; 
   }
   
-  .action-btn i {
-    color: white;
+  .span-Arrow {
+    display: inline-block; 
+    font-size: 15px; 
   }
-  
-  .action-btn.btn-success {
-    background-color: green;
-    border-color: green;
-  }
-  
-  .action-btn.btn-success i {
-    color: white;
-  }
-  
-  .action-btn.btn-danger i {
-    color: white;
-  }
-  .usernamedelete{
-    font-size: large;
-    font-weight: bold;
-  }
-  .vehicle-image {
-    width: 110px; 
-    height: 110px; 
-    object-fit: contain; 
-    /* border-radius:100%;  */
-  }
+}
 
-
-  
-  
+@media screen and (max-width: 992px) {
+  .dashboard-table{
+    display: block;
+  }
+}
