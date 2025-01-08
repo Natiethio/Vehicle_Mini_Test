@@ -8,13 +8,26 @@ mongoose.connect(dbURL, {
 
 });
 
-// "mongodb+srv://natmantest:Etyopgion9310@cluster0.a4xgx.mongodb.net/vehicle_DB?retryWrites=true&w=majority&appName=Cluster0"
-mongoose.connect(dbURL)
 
-// mongoose.connect("mongodb://127.0.0.1:27017/crud_db",{
-//   // useNewUrlParser: true,
-//   // useUnifiedTopology: true,
-// });
+while (retries = 5) {
+  try {
+    mongoose.connect(dbURL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      connectTimeoutMS: 50000,
+    }); 
+    console.log("MongoDB Connected");
+    break;
+  } catch (error) {
+    console.error(`MongoDB connection failed. Retries left: ${retries - 1}`);
+    retries -= 1;
+
+    // Wait 5 seconds before retrying
+    if (retries > 0) new Promise((res) => setTimeout(res, 5000));
+    else process.exit(1); // Exit app if all retries fail
+  }
+}
+
 
 mongoose.connection.on("connected" , () => {
    console.log("connected to MongoDB");

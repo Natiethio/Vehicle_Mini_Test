@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const vehicleController = require("../controllers/vehicleController");
 const upload = require('../Middlewares/upload');
 
-const router = express.Router();
+const router = express.Router(); 
 
 
 router.post(
@@ -14,7 +14,7 @@ router.post(
 
 
 
-router.get("/getallvehicles",   vehicleController.getVehicles)
+router.get("/getallvehicles",   vehicleController.getVehicles) 
 
 
 router.get("/getvehiclebyid/:id", vehicleController.getVehicleById)
